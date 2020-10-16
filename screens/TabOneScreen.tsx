@@ -8,7 +8,10 @@ import { Text, View } from '../components/Themed';
 const app: Realm.App = new Realm.App({ id: "medicare-vvmvo" });
 
 async function createAnonymousUser() {
-  const credentials = Realm.Credentials.anonymous();
+  const email = 'test@example.com';
+  const password = 'I am a real password (nope)';
+
+  const credentials = Realm.Credentials.emailPassword(email, password);
   try {
     // Authenticate the user
     const user: Realm.User = await app.logIn(credentials);
