@@ -24,8 +24,30 @@ async function createAnonymousUser() {
   }
 }
 
-// TODO: anonymous user auth is not supported
-createAnonymousUser();
+async function initDB() {
+  // const mongo = app.services.mongodb("<atlas service name>");
+  // const mongoCollection = mongo.db("<database name>").collection("<collection name>");
+
+  // TODO: access data via GraphQL:
+
+  const response = await fetch(`https://realm.mongodb.com/api/client/v2.0/app/${app.id}/graphql`, {
+    method: 'POST',
+    headers: {
+      email: 'test@example.com',
+      password: 'I am a real password (nope)',
+    },
+    body: '{"query":"query AllPatients {\n  patients {\n    firstName\n    lastName\n  }\n}"}',
+  })
+}
+
+// TODO: DO NOT USE IN PRODUCTION
+async function run() {
+  await createAnonymousUser();
+  initDB();
+}
+
+run();
+
 
 
 export default function TabOneScreen() {
